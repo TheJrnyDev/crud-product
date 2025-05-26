@@ -1,10 +1,10 @@
-# Project Name
+# Project Example CRUD Product
 
 A full-stack web application built with Go backend and React frontend framework.
 
 ## Tech Stack
 
-- **Backend**: Go
+- **Backend**: Go Echo
 - **Frontend**: React Typescript with Vite
 - **Database**: MongoDB Community Server
 
@@ -37,7 +37,7 @@ cd frontend
 npm install
 ```
 
-### Running the Application
+## Running the Application
 
 1. **Start the backend server (default port is 8080)**
 ```bash
@@ -53,33 +53,31 @@ npm run dev
 - Frontend: http://localhost:5137
 - Backend API: http://localhost:8080
 
-### Database Configuration
+## Environment Configuration
 
-Now current version cannot change database easlier, see infomation at backend/config/database.go
+The project uses environment variables for configuration. We have `.env` file in the backend directory with the following variables:
 
-```bash
-# Example configuration
-export API_KEY=your_api_key
-export DATABASE_URL=your_database_url
+- `MONGODB_URI`: MongoDB connection string
+- `DATABASE_NAME`: Name of the database to use
+- `PORT`: Port for the backend server
+
+## Project Structure
+
 ```
-
-## API Documentation
-
-If your project has an API, document the main endpoints:
-
-### GET /api/example
-- Description: What this endpoint does
-- Parameters: List parameters
-- Response: Show example response
+crud-product/
+├── backend/
+│   ├── config/
+│   │   └── database.go
+│   ├── .env
+│   ├── go.mod
+│   └── main.go
+|   └── ...
+├── frontend/
+│   ├── package.json
+│   └── ...
+└── README.md
+```
 
 ## Contact
 
-Your Name - your.email@example.com
-
-Project Link: [https://github.com/yourusername/your-project-name](https://github.com/yourusername/your-project-name)
-
-## Acknowledgments
-
-- Hat tip to anyone whose code was used
-- Inspiration sources
-- Libraries or tools that made this possible
+Kittipong Piada - kittipongpiada@gmail.com
