@@ -20,8 +20,8 @@ function App() {
   const fetchAllProduct = async () => {
     try {
       const response = await axios.get(URL_GET_PRODUCTS);
-      console.log(response.data);
-      setProducts(response.data);
+      // console.log(response.data.result);
+      setProducts(response.data.result);
     } catch (error) {
       // show error message using Swal
       Swal.fire({
