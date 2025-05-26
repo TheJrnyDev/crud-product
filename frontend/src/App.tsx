@@ -16,12 +16,21 @@ function App() {
 
   const [products, setProducts] = useState<Product[]>([]);
   const [productID, setProductID] = useState<string>("");
+  const [empty, setEmpty] = useState<boolean>(false);
 
   const fetchAllProduct = async () => {
     try {
+      // Fetch all products from the backend
       const response = await axios.get(URL_GET_PRODUCTS);
-      // console.log(response.data.result);
-      setProducts(response.data.result);
+
+      // Check if the response contains data
+      if (response.data.result !== null) {
+        // Set the products state with the fetched data
+        setProducts(response.data.result);
+        setEmpty(false);
+      } else {
+        setEmpty(true);
+      }
     } catch (error) {
       // show error message using Swal
       Swal.fire({
@@ -62,7 +71,7 @@ function App() {
 
   const handleProductIDChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Convert input to uppercase
-    const inputValue = e.target.value.toUpperCase(); 
+    const inputValue = e.target.value.toUpperCase();
     // Set the product ID state
     setProductID(inputValue);
     // Add a hyphen after every 5 characters
@@ -148,27 +157,16 @@ function App() {
     });
   };
 
-  return (
-    <>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-        <div className="flex flex-row justify-center items-center mb-4">
-          <div>รหัสสินค้า</div>
-          <input
-            type="text"
-            className="ml-2 px-3 py-2 border border-gray-300 rounded uppercase"
-            placeholder="xxxxx-xxxxx-xxxxx-xxxxx-xxxxx-xxxxx"
-            value={productID}
-            onChange={handleProductIDChange}
-            style={{ width: "500px" }}
-            maxLength={35}
-          />
-          <button
-            onClick={addProduct}
-            className="ml-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          >
-            Add
-          </button>
+  const RenderProducts = () => {
+    if (empty) {
+      return (
+        <div className="text-center text-gray-500">
+          <p>ไม่มีสินค้าที่เพิ่มไว้</p>
+          <p>กรุณาเพิ่มสินค้าก่อน</p>
         </div>
+      );
+    } else {
+      return (
         <div className="flex items-center gap-4">
           <table className="min-w-full bg-white border border-gray-300">
             <thead>
@@ -205,6 +203,33 @@ function App() {
             </tbody>
           </table>
         </div>
+      );
+    }
+  };
+
+  return (
+    <>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <h1 className="text-2xl font-bold mb-6">ระบบ Product Management</h1>
+        <div className="flex flex-row justify-center items-center mb-4">
+          <div>รหัสสินค้า</div>
+          <input
+            type="text"
+            className="ml-2 px-3 py-2 border border-gray-300 rounded uppercase"
+            placeholder="xxxxx-xxxxx-xxxxx-xxxxx-xxxxx-xxxxx"
+            value={productID}
+            onChange={handleProductIDChange}
+            style={{ width: "500px" }}
+            maxLength={35}
+          />
+          <button
+            onClick={addProduct}
+            className="ml-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+            Add
+          </button>
+        </div>
+        <RenderProducts />
       </div>
     </>
   );
