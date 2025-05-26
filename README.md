@@ -5,7 +5,7 @@ A full-stack web application built with Go backend and React frontend framework.
 ## Tech Stack
 
 - **Backend**: Go Echo
-- **Frontend**: React Typescript with Vite
+- **Frontend**: React Typescript with Vite and Tailwinds CSS
 - **Database**: MongoDB Community Server
 
 ## Installation
