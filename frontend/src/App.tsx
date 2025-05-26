@@ -16,7 +16,7 @@ function App() {
 
   const [products, setProducts] = useState<Product[]>([]);
   const [productID, setProductID] = useState<string>("");
-  const [empty, setEmpty] = useState<boolean>(false);
+  const [empty, setEmpty] = useState<boolean>(true);
 
   const fetchAllProduct = async () => {
     try {
@@ -159,6 +159,7 @@ function App() {
 
   const RenderProducts = () => {
     if (empty) {
+      console.log("No products found");
       return (
         <div className="text-center text-gray-500">
           <p>ไม่มีสินค้าที่เพิ่มไว้</p>
@@ -166,6 +167,7 @@ function App() {
         </div>
       );
     } else {
+      console.log("Products found:", products);
       return (
         <div className="flex items-center gap-4">
           <table className="min-w-full bg-white border border-gray-300">
