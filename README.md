@@ -5,7 +5,7 @@ A full-stack web application built with Go backend and React frontend framework.
 ## Tech Stack
 
 - **Backend**: Go Echo
-- **Frontend**: React Typescript with Vite
+- **Frontend**: React Typescript with Vite and Tailwinds CSS
 - **Database**: MongoDB Community Server
 
 ## Installation
@@ -77,6 +77,15 @@ crud-product/
 │   └── ...
 └── README.md
 ```
+
+## Learning Outcomes
+
+This project served as a practical learning experience in modern software development practices:
+
+- **Microservices Architecture**: Successfully applied microservices design patterns to create scalable and maintainable services
+- **Clean Architecture**: Implemented clean architecture principles for better code organization and separation of concerns
+- **Full-Stack Development**: Gained hands-on experience integrating Go backend with modern frontend technologies
+- **Database Integration**: Learned to work with MongoDB in a production-like environment
 
 ## Contact
 
