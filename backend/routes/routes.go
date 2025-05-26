@@ -3,6 +3,7 @@ package routes
 import (
 	"crud-product-bck/handlers"
 	"crud-product-bck/services"
+	"os"
 
 	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -19,7 +20,9 @@ func InitRoutes(e *echo.Echo, client *mongo.Client) {
 
 func initProductRoutes(v1 *echo.Group, client *mongo.Client) {
 	// Initialize services with client and database name
-	productService := services.NewProductService(client, "crud-product")
+	// Get Database name from environment variable or use default
+	dbName := os.Getenv("DATABASE_NAME")
+	productService := services.NewProductService(client, dbName)
 
 	// Initialize handlers
 	productHandler := handlers.NewProductHandler(productService)

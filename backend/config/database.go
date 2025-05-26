@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 	"time"
 
 	"go.mongodb.org/mongo-driver/mongo"
@@ -22,8 +23,17 @@ func InitDatabase() *mongo.Client {
 	// cancel the context when done to free resources
 	defer cancel()
 
-	// connection string for MongoDB
-	connectionString := "mongodb://localhost:27017"
+	// get connection string from environment variable, fallback to default
+	connectionString := os.Getenv("MONGODB_URI")
+	if connectionString == "" {
+		connectionString = "mongodb://localhost:27017"
+	}
+
+	// get database name from environment variable, fallback to default
+	databaseName := os.Getenv("DATABASE_NAME")
+	if databaseName == "" {
+		databaseName = "crud-product"
+	}
 
 	// connect to the database
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(connectionString))
@@ -41,8 +51,9 @@ func InitDatabase() *mongo.Client {
 
 	// Store globally for use throughout the app
 	Client = client
+	Database = client.Database(databaseName)
 
-	fmt.Println("✅ Connected to MongoDB")
+	fmt.Printf("✅ Connected to MongoDB database: %s\n", databaseName)
 
 	return Client
 }
