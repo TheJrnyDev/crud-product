@@ -22,6 +22,7 @@ func initProductRoutes(v1 *echo.Group, client *mongo.Client) {
 	// Initialize services with client and database name
 	// Get Database name from environment variable or use default
 	dbName := os.Getenv("DATABASE_NAME")
+	println("Using database name:", dbName)
 	productService := services.NewProductService(client, dbName)
 
 	// Initialize handlers

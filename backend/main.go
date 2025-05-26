@@ -3,11 +3,19 @@ package main
 import (
 	config "crud-product-bck/config"
 	route "crud-product-bck/routes"
+	"log"
 
+	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 )
 
 func main() {
+	// Load .env file
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
 	// Initialize database connection
 	client := config.InitDatabase()
 
