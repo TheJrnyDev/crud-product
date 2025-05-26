@@ -39,15 +39,10 @@ func InitDatabase() *mongo.Client {
 		log.Fatal(err)
 	}
 
-	// Specify the database name to use
-	// databaseName := "crud-product"
-
 	// Store globally for use throughout the app
 	Client = client
-	// Database = client.Database(databaseName)
 
 	fmt.Println("✅ Connected to MongoDB")
-	// fmt.Println("✅ Database selected:", Database.Name())
 
 	return Client
 }
