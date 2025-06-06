@@ -21,7 +21,7 @@ func NewProductService(client *mongo.Client, dbName string) *ProductService {
 	}
 }
 
-// GetAllProducts retrieves all products from the collection
+// * GetAllProducts retrieves all products from the collection
 func (s *ProductService) GetAllProducts() (*[]models.Product, error) {
 	// Find all documents in the collection
 	cursor, err := s.collection.Find(context.TODO(), bson.M{})
@@ -40,7 +40,7 @@ func (s *ProductService) GetAllProducts() (*[]models.Product, error) {
 	return &results, nil
 }
 
-// GetProductByID retrieves a product by its ID from the collection
+// * GetProductByID retrieves a product by its ID from the collection
 func (s *ProductService) GetProductByID(productID string) (*models.Product, error) {
 	// Find a single document with the specified product ID
 	var product models.Product
@@ -55,7 +55,7 @@ func (s *ProductService) GetProductByID(productID string) (*models.Product, erro
 	return &product, nil
 }
 
-// CreateProduct inserts a new product into the collection
+// * CreateProduct inserts a new product into the collection
 func (s *ProductService) CreateProduct(product *models.Product) (*models.Product, error) {
 	// Insert the product into the collection
 	_, err := s.collection.InsertOne(context.TODO(), product)
@@ -67,7 +67,7 @@ func (s *ProductService) CreateProduct(product *models.Product) (*models.Product
 	return product, nil
 }
 
-// DeleteProduct removes a product from the collection by its ID
+// * DeleteProduct removes a product from the collection by its ID
 func (s *ProductService) DeleteProduct(productID string) error {
 	// Delete the product with the specified ID
 	_, err := s.collection.DeleteOne(context.TODO(), bson.M{"product_id": productID})
@@ -76,4 +76,15 @@ func (s *ProductService) DeleteProduct(productID string) error {
 	}
 
 	return nil
+}
+
+// * Update Product Name by product_id
+func (s *ProductService) UpdateProductName(productID string, productName string) (*mongo.UpdateResult, error) {
+	// Update the product with specidied ID
+	updateData, err := s.collection.UpdateOne(context.TODO(), bson.M{"product_id": productID}, bson.M{"product_name": productName})
+	if err != nil {
+		return updateData, err
+	}
+
+	return updateData, nil
 }
