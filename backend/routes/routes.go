@@ -32,4 +32,5 @@ func initProductRoutes(v1 *echo.Group, client *mongo.Client) {
 	v1.GET("/products", productHandler.GetProducts)
 	v1.POST("/product", productHandler.CreateProduct)
 	v1.DELETE("/product", productHandler.DeleteProduct)
+	v1.PUT("/product/name", productHandler.UpdateProductName)
 }
