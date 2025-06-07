@@ -23,7 +23,7 @@ func ResponseSuccess(c echo.Context, code int, data interface{}, message string)
 
 func ResponseFail(c echo.Context, code int, data interface{}, message string) error {
 	return c.JSON(code, JsendResponse{
-		Status:  "success",
+		Status:  "fail",
 		Code:    code,
 		Data:    data,
 		Message: message,
