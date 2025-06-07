@@ -4,28 +4,37 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// Response structures
-type SuccessResponse struct {
-	Result  interface{} `json:"result"`
-	Message string      `json:"message,omitempty"`
+// Response structures following JSend
+type JsendResponse struct {
+	Status  string      `json:"status,omitempty"`
+	Code    int         `json:"code"`
+	Message string      `json:"message"`
+	Data    interface{} `json:"data"`
 }
 
-type ErrorResponse struct {
-	Error string `json:"error"`
-	Code  int    `json:"code,omitempty"`
-}
-
-func ResponseSuccess(c echo.Context, statusCode int, data interface{}, message string) error {
-	return c.JSON(statusCode, SuccessResponse{
-		Result:  data,
+func ResponseSuccess(c echo.Context, code int, data interface{}, message string) error {
+	return c.JSON(code, JsendResponse{
+		Status:  "success",
+		Code:    code,
+		Data:    data,
 		Message: message,
 	})
 }
 
-// Error responses
-func ResponseError(c echo.Context, statusCode int, message string) error {
-	return c.JSON(statusCode, ErrorResponse{
-		Error: message,
-		Code:  statusCode,
+func ResponseFail(c echo.Context, code int, data interface{}, message string) error {
+	return c.JSON(code, JsendResponse{
+		Status:  "success",
+		Code:    code,
+		Data:    data,
+		Message: message,
+	})
+}
+
+func ResponseError(c echo.Context, code int, data interface{}, message string) error {
+	return c.JSON(code, JsendResponse{
+		Status:  "error",
+		Code:    code,
+		Data:    data,
+		Message: message,
 	})
 }
